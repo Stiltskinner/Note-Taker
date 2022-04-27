@@ -1,7 +1,12 @@
 [
     {
-        "title": "Test",
-        "text": "Hi I'm a note",
-        "id": "e6933360-c651-11ec-8239-2f13d1330f17"
+        "title": "Get groceries",
+        "text": "Don't forget the milk",
+        "id": "dfe43430-c654-11ec-8a5d-0b2eb485458c"
+    },
+    {
+        "title": "Be a good person",
+        "text": "It's important",
+        "id": "e86e54a0-c654-11ec-8ca1-84dcdd69b378"
     }
 ]
