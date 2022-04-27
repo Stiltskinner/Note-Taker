@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
+const { readAndAppend, readFromFile, writeToFile } = require('../helpers/fsUtils');
 const uuidv1 = require('uuidv1');
 
 // GET "/api/notes" responds with all notes from the database
@@ -8,14 +8,14 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  const noteId = req.params.id;
+  const id = req.params.id;
   readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
-      const result = json.filter((note) => notes.id === noteId);
+      const result = json.filter((note) => notes.id === id);
       return result.length > 0
         ? res.json(result)
-        : res.json('No note with that ID');
+        : res.json('No note with that id');
     });
 });
 
@@ -37,6 +37,22 @@ router.post('/', (req, res) => {
   } else {
     res.error('Error in adding note');
   }
+});
+
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  readFromFile('./db/db.json')
+    .then((data) => JSON.parse(data))
+    .then((json) => {
+      // Make a new array of all notes except the one with the id provided in the URL
+      const result = json.filter((note) => note.id !== id);
+
+      // Save that array to the filesystem
+      writeToFile('./db/db.json', result);
+
+      // Respond to the DELETE request
+      res.json(`Item ${id} has been deleted 🗑️`);
+    });
 });
 
 module.exports = router;
