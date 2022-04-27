@@ -1,29 +1,23 @@
 const router = require('express').Router();
 const store = require('../db/store');
+const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
+const uuidv1 = require('uuidv1');
 
 // GET "/api/notes" responds with all notes from the database
-router.get('/notes', (req, res) => {
-  store
-    .getNotes()
-    .then((notes) => {
-      return res.json(notes);
-    })
-    .catch((err) => res.status(500).json(err));
+router.get('/', (req, res) => {
+  readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
-router.post('/notes', (req, res) => {
-  store
-    .addNote(req.body)
-    .then((note) => res.json(note))
-    .catch((err) => res.status(500).json(err));
-});
-
-// DELETE "/api/notes" deletes the note with an id equal to req.params.id
-router.delete('/notes/:id', (req, res) => {
-  store
-    .removeNote(req.params.id)
-    .then(() => res.json({ ok: true }))
-    .catch((err) => res.status(500).json(err));
+router.get('/:note_id', (req, res) => {
+  const noteId = req.params.note_id;
+  readFromFile('./db/db.json')
+    .then((data) => JSON.parse(data))
+    .then((json) => {
+      const result = json.filter((note) => notes.note_id === tipId);
+      return result.length > 0
+        ? res.json(result)
+        : res.json('No note with that ID');
+    });
 });
 
 module.exports = router;
