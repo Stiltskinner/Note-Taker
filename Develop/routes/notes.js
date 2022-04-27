@@ -7,12 +7,12 @@ router.get('/', (req, res) => {
   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
-router.get('/:note_id', (req, res) => {
-  const noteId = req.params.note_id;
+router.get('/:id', (req, res) => {
+  const noteId = req.params.id;
   readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
-      const result = json.filter((note) => notes.note_id === noteId);
+      const result = json.filter((note) => notes.id === noteId);
       return result.length > 0
         ? res.json(result)
         : res.json('No note with that ID');
@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
     const newnote = {
       title,
       text,
-      note_id: uuidv1(),
+      id: uuidv1(),
     };
 
     readAndAppend(newnote, './db/db.json');

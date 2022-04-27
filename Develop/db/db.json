@@ -1,17 +1,12 @@
 [
     {
-        "title": "stinky",
-        "text": "it's bad",
-        "note_id": "bb5b5110-c650-11ec-8d6f-485142d29e0f"
+        "title": "Test",
+        "text": "Hi I'm a note",
+        "id": "e6933360-c651-11ec-8239-2f13d1330f17"
     },
     {
-        "title": "stinky",
-        "text": "it's bad",
-        "note_id": "cfd10c70-c650-11ec-8263-3a1b4e44bc97"
-    },
-    {
-        "title": "stinky",
-        "text": "it's bad",
-        "note_id": "d2b98660-c650-11ec-844b-0f3a50a43e10"
+        "title": "Hey I'm another note",
+        "text": "Yep\n",
+        "id": "ef4f8760-c651-11ec-80d0-e595cbd9dd88"
     }
 ]
