@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const store = require('../db/store');
 const { readAndAppend, readFromFile } = require('../helpers/fsUtils');
 const uuidv1 = require('uuidv1');
 
@@ -13,11 +12,31 @@ router.get('/:note_id', (req, res) => {
   readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
-      const result = json.filter((note) => notes.note_id === tipId);
+      const result = json.filter((note) => notes.note_id === noteId);
       return result.length > 0
         ? res.json(result)
         : res.json('No note with that ID');
     });
+});
+
+// POST Route for a new UX/UI note
+router.post('/', (req, res) => {
+  console.log(req.body);
+
+  const { title, text } = req.body;
+
+  if (req.body) {
+    const newnote = {
+      title,
+      text,
+      note_id: uuidv1(),
+    };
+
+    readAndAppend(newnote, './db/db.json');
+    res.json(`note added successfully 🚀`);
+  } else {
+    res.error('Error in adding note');
+  }
 });
 
 module.exports = router;
