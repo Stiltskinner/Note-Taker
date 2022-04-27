@@ -2,7 +2,7 @@ const util = require('util');
 const fs = require('fs');
 
 // This package will be used to generate our unique ids. https://www.npmjs.com/package/uuid
-const uuidv1 = require('uuid/v1');
+const uuidv1 = require('uuidv1');
 
 // Code below, including class Store, borrowed from unit 11 mini project solved.
 const readFileAsync = util.promisify(fs.readFile);
